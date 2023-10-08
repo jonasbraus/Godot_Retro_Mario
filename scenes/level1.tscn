@@ -53,6 +53,7 @@ size = Vector2(90, 20)
 script = ExtResource("1_8ac80")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_speed = 20.0
 script = ExtResource("2_5frrd")
 
 [node name="pipes" type="Node2D" parent="."]

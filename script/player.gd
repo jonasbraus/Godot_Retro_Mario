@@ -36,9 +36,9 @@ func _unhandled_input(event):
 			if event.is_pressed():
 				joystick_anchor = event.position
 			var anchor_offset = event.position.x - joystick_anchor.x
-			if anchor_offset > 20:
+			if anchor_offset > 0:
 				touch_axis = 1
-			elif anchor_offset < -20:
+			elif anchor_offset < 0:
 				touch_axis = -1
 			else:
 				touch_axis = 0
