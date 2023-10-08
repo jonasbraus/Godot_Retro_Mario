@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5cuv8odym0ws"]
+
+[ext_resource type="Script" path="res://script/dead_screen.gd" id="1_uqicl"]
+[ext_resource type="FontFile" uid="uid://dktcchktppu1v" path="res://assets/fonts/super-mario-bros-nes.ttf" id="2_agrei"]
+
+[node name="dead_screen" type="Node2D"]
+script = ExtResource("1_uqicl")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -72.0
+offset_top = -16.0
+offset_right = 72.0
+offset_bottom = 15.0
+theme_override_fonts/font = ExtResource("2_agrei")
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="button_retry" type="Button" parent="."]
+offset_left = -104.0
+offset_top = 32.0
+offset_right = -8.0
+offset_bottom = 58.0
+theme_override_fonts/font = ExtResource("2_agrei")
+text = "Retry"
+
+[node name="button_quit" type="Button" parent="."]
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 104.0
+offset_bottom = 58.0
+theme_override_fonts/font = ExtResource("2_agrei")
+text = "Quit"
+
+[connection signal="pressed" from="button_retry" to="." method="_on_button_retry_pressed"]
+[connection signal="pressed" from="button_quit" to="." method="_on_button_quit_pressed"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://yxrvv1tx4rpk"]
+
+[ext_resource type="Texture2D" uid="uid://bbmdhngnxuthd" path="res://assets/items/mushroom/musroom.png" id="1_c1eym"]
+[ext_resource type="Script" path="res://script/mushroom.gd" id="1_umt8h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7bx3d"]
+radius = 8.0
+
+[node name="mushroom" type="RigidBody2D"]
+lock_rotation = true
+script = ExtResource("1_umt8h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7bx3d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_c1eym")
+
+[node name="ray_cast_left" type="RayCast2D" parent="."]
+target_position = Vector2(-10, 0)
+
+[node name="ray_cast_right" type="RayCast2D" parent="."]
+target_position = Vector2(10, 0)
+
+[node name="ray_cast_up" type="RayCast2D" parent="."]
+target_position = Vector2(0, -10)
+
+[node name="ray_cast_down" type="RayCast2D" parent="."]
+target_position = Vector2(0, 10)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

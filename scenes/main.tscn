@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://n8a31oeckjr5"]
+
+[ext_resource type="Script" path="res://script/main.gd" id="1_8owm7"]
+[ext_resource type="FontFile" uid="uid://dktcchktppu1v" path="res://assets/fonts/super-mario-bros-nes.ttf" id="2_4h7bo"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_8owm7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -40.0
+offset_top = -64.0
+offset_right = 40.0
+offset_bottom = -41.0
+theme_override_fonts/font = ExtResource("2_4h7bo")
+text = "Mario"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="button_level_1" type="Button" parent="."]
+offset_left = -88.0
+offset_top = -32.0
+offset_right = -56.0
+offset_bottom = -6.0
+theme_override_fonts/font = ExtResource("2_4h7bo")
+text = "1"
+
+[connection signal="pressed" from="button_level_1" to="." method="_on_button_level_1_pressed"]
