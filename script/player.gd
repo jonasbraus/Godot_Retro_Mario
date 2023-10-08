@@ -23,6 +23,8 @@ var coins = 0
 func hit():
 	if not is_big:
 		get_tree().change_scene_to_file("res://scenes/dead_screen.tscn")
+		var file = FileAccess.open("user://coins.txt", FileAccess.WRITE)
+		file.store_var(coins)
 	else:
 		is_big = false
 		collission_small.scale.y = 1
@@ -47,6 +49,10 @@ func eat_big_mushroom():
 		coin_label.text = str(coins)
 	
 func _ready():
+	var file = FileAccess.open("user://coins.txt", FileAccess.READ)
+	if file != null:
+		coins = int(file.get_var())
+		coin_label.text = str(coins)
 	RenderingServer.set_default_clear_color(Color.ROYAL_BLUE)
 	collission_small.scale.y = 1
 	ray_cast_down.scale.y = 1
@@ -119,6 +125,8 @@ func _physics_process(delta):
 		var hit_object = ray_cast_down.get_collider()
 		if hit_object != null and "dead" in hit_object.name:
 			get_tree().change_scene_to_file("res://scenes/dead_screen.tscn")
+			var file = FileAccess.open("user://coins.txt", FileAccess.WRITE)
+			file.store_var(coins)
 		if hit_object != null and "gumba" in hit_object.name:
 			hit_object.hit()
 			velocity.y = JUMP_VELOCITY / 2
