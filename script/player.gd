@@ -5,30 +5,52 @@ const JUMP_VELOCITY = -350.0
 const gravity = 800.0
 
 @export var coin_label : Label
+@export var control_pip : Control
 
 @onready var ray_cast_up = $ray_cast_up
 @onready var ray_cast_down = $ray_cast_down
 @onready var player_sprite = $Sprite2D
 @onready var animation_player = $AnimationPlayer
+@onready var collission_small = $collission_small
 
 var joystick_anchor = Vector2.ZERO
 var touch_axis = 0
 var touch_jump = false
 
+var is_big = false
 var coins = 0
 
 func hit():
-	get_tree().change_scene_to_file("res://scenes/dead_screen.tscn")
+	if not is_big:
+		get_tree().change_scene_to_file("res://scenes/dead_screen.tscn")
+	else:
+		is_big = false
+		collission_small.scale.y = 1
+		ray_cast_down.scale.y = 1
+		ray_cast_up.scale.y = 1
 	
 func collect_coin():
 	coins += 1
 	coin_label.text = str(coins)
 	
 func eat_big_mushroom():
-	print_debug("mushroom eat")
+	if not is_big:
+		is_big = true
+		position.y -= 16
+		var position_beforce_scale = global_position
+		collission_small.scale.y = 2
+		ray_cast_down.scale.y = 2
+		ray_cast_up.scale.y = 2
+		global_position = position_beforce_scale
+	else:
+		coins += 5
+		coin_label.text = str(coins)
 	
 func _ready():
 	RenderingServer.set_default_clear_color(Color.ROYAL_BLUE)
+	collission_small.scale.y = 1
+	ray_cast_down.scale.y = 1
+	ray_cast_up.scale.y = 1
 
 func _unhandled_input(event):
 	if event is InputEventScreenTouch or event is InputEventScreenDrag:
@@ -66,13 +88,25 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 	if velocity.y < 0:
-		animation_player.play("jump")
+		if is_big:
+			animation_player.play("jump_big")
+		else:
+			animation_player.play("jump")
 	elif velocity.y > 0:
-		animation_player.play("fall")
+		if is_big:
+			animation_player.play("fall_big")
+		else:
+			animation_player.play("fall")
 	elif velocity.x != 0:
-		animation_player.play("walk")
+		if is_big:
+			animation_player.play("walk_big")
+		else:
+			animation_player.play("walk")
 	else:
-		animation_player.play("idle")
+		if is_big:
+			animation_player.play("idle_big")
+		else:
+			animation_player.play("idle")
 		
 	if ray_cast_up.is_colliding():
 		var hit_object = ray_cast_up.get_collider()

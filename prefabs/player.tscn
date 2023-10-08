@@ -1,11 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://b6y65b07txd3q"]
+[gd_scene load_steps=22 format=3 uid="uid://b6y65b07txd3q"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_w6t11"]
 [ext_resource type="Texture2D" uid="uid://bp4gbf552060n" path="res://assets/player/mario_run_2.png" id="2_mg6gw"]
+[ext_resource type="Texture2D" uid="uid://dvqj1dcsbmdf3" path="res://assets/player/mario_big_idle.png" id="2_w2mex"]
 [ext_resource type="Texture2D" uid="uid://cfx8r3a4d7828" path="res://assets/player/mario_idle.png" id="3_3nuhq"]
 [ext_resource type="Texture2D" uid="uid://dng4kj1jc25on" path="res://assets/player/mario_jump.png" id="4_4yj03"]
 [ext_resource type="Texture2D" uid="uid://bd5v5tu06yiea" path="res://assets/player/mario_run_1.png" id="5_3u31x"]
 [ext_resource type="Texture2D" uid="uid://3xhlabxh5leb" path="res://assets/player/mario_run_3.png" id="6_63kxx"]
+[ext_resource type="Texture2D" uid="uid://bpq4hlorelprc" path="res://assets/player/mario_big_run_1.png" id="8_nv2sn"]
+[ext_resource type="Texture2D" uid="uid://tx8du24bedmc" path="res://assets/player/mario_big_run_2.png" id="9_o8mb5"]
+[ext_resource type="Texture2D" uid="uid://gb4htpi3v8nc" path="res://assets/player/mario_big_run_3.png" id="10_57gsk"]
+[ext_resource type="Texture2D" uid="uid://b5o2qjbh82wa6" path="res://assets/player/mario_big_jump.png" id="11_2rukd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nbnxt"]
 radius = 6.0
@@ -72,12 +77,77 @@ tracks/0/keys = {
 "values": [ExtResource("5_3u31x"), ExtResource("2_mg6gw"), ExtResource("6_63kxx"), ExtResource("2_mg6gw")]
 }
 
+[sub_resource type="Animation" id="Animation_rljkx"]
+resource_name = "idle_big"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_w2mex"), ExtResource("2_w2mex")]
+}
+
+[sub_resource type="Animation" id="Animation_bnuit"]
+resource_name = "walk_big"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("8_nv2sn"), ExtResource("9_o8mb5"), ExtResource("10_57gsk"), ExtResource("8_nv2sn")]
+}
+
+[sub_resource type="Animation" id="Animation_0t03s"]
+resource_name = "jump_big"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("11_2rukd"), ExtResource("11_2rukd")]
+}
+
+[sub_resource type="Animation" id="Animation_ni6rb"]
+resource_name = "fall_big"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("9_o8mb5"), ExtResource("9_o8mb5")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gjmuo"]
 _data = {
 "fall": SubResource("Animation_8rthu"),
+"fall_big": SubResource("Animation_ni6rb"),
 "idle": SubResource("Animation_blqbi"),
+"idle_big": SubResource("Animation_rljkx"),
 "jump": SubResource("Animation_vsund"),
-"walk": SubResource("Animation_75ug8")
+"jump_big": SubResource("Animation_0t03s"),
+"walk": SubResource("Animation_75ug8"),
+"walk_big": SubResource("Animation_bnuit")
 }
 
 [node name="player" type="CharacterBody2D"]
@@ -86,7 +156,7 @@ script = ExtResource("1_w6t11")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_mg6gw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="collission_small" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_nbnxt")
 
 [node name="ray_cast_up" type="RayCast2D" parent="."]

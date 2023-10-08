@@ -1,34 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://ciw8ifeiqlscr"]
+[gd_scene load_steps=5 format=3 uid="uid://dcchc53kwhwh"]
 
 [ext_resource type="Texture2D" uid="uid://bbmdhngnxuthd" path="res://assets/items/mushroom/musroom.png" id="1_c1eym"]
 [ext_resource type="Script" path="res://script/mushroom.gd" id="1_umt8h"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7iyrl"]
-radius = 8.0
-height = 16.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_646wj"]
+size = Vector2(14, 14)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3rgql"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgyf0"]
+size = Vector2(16, 16)
 
 [node name="mushroom" type="RigidBody2D"]
 lock_rotation = true
-linear_velocity = Vector2(5, 0)
+freeze_mode = 1
 script = ExtResource("1_umt8h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_c1eym")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_7iyrl")
+shape = SubResource("RectangleShape2D_646wj")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_sgyf0")
 
 [node name="ray_cast_left" type="RayCast2D" parent="."]
 target_position = Vector2(-10, 0)
 
 [node name="ray_cast_right" type="RayCast2D" parent="."]
 target_position = Vector2(10, 0)
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_3rgql")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

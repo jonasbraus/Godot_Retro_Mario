@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bxqynax3k8bhi"]
+[gd_scene load_steps=26 format=3 uid="uid://bxqynax3k8bhi"]
 
 [ext_resource type="Script" path="res://script/level1.gd" id="1_8ac80"]
 [ext_resource type="Script" path="res://script/camera.gd" id="2_5frrd"]
@@ -20,6 +20,7 @@
 [ext_resource type="FontFile" uid="uid://dktcchktppu1v" path="res://assets/fonts/super-mario-bros-nes.ttf" id="19_vh18h"]
 [ext_resource type="Texture2D" uid="uid://bgxo1di4jxv7p" path="res://assets/single/finish_2.png" id="20_myray"]
 [ext_resource type="PackedScene" uid="uid://sftmwl26okh3" path="res://prefabs/gumba.tscn" id="20_rivl7"]
+[ext_resource type="PackedScene" uid="uid://ciw8ifeiqlscr" path="res://prefabs/mushroom.tscn" id="21_l0vyr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cr1p4"]
 texture = ExtResource("2_6x42w")
@@ -91,15 +92,15 @@ shape = SubResource("RectangleShape2D_nxpfa")
 [node name="dead" type="StaticBody2D" parent="solid_blocks"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="solid_blocks/dead"]
-position = Vector2(800, 112)
+position = Vector2(800, 104)
 shape = SubResource("RectangleShape2D_dh1uq")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="solid_blocks/dead"]
-position = Vector2(1120, 112)
+position = Vector2(1120, 104)
 shape = SubResource("RectangleShape2D_dh1uq")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="solid_blocks/dead"]
-position = Vector2(2112, 112)
+position = Vector2(2112, 104)
 shape = SubResource("RectangleShape2D_dh1uq")
 
 [node name="additional_blocks" type="Node2D" parent="."]
@@ -228,6 +229,7 @@ item_prefab = ExtResource("18_4ofra")
 
 [node name="block_item4" parent="item_blocks" instance=ExtResource("13_nwoil")]
 position = Vector2(104, -56)
+item_prefab = ExtResource("21_l0vyr")
 
 [node name="block_item5" parent="item_blocks" instance=ExtResource("13_nwoil")]
 position = Vector2(968, 8)
@@ -235,6 +237,7 @@ item_prefab = ExtResource("18_4ofra")
 
 [node name="block_item6" parent="item_blocks" instance=ExtResource("13_nwoil")]
 position = Vector2(1208, -56)
+item_prefab = ExtResource("21_l0vyr")
 
 [node name="block_item7" parent="item_blocks" instance=ExtResource("13_nwoil")]
 position = Vector2(1368, 8)
@@ -413,10 +416,10 @@ offset_bottom = 26.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 1.0
-offset_right = 92.0
-offset_bottom = 22.0
+offset_left = 45.0
+offset_top = 8.0
+offset_right = 122.0
+offset_bottom = 29.0
 theme_override_colors/font_color = Color(0.894118, 0.588235, 0.0745098, 1)
 theme_override_fonts/font = ExtResource("19_vh18h")
 theme_override_font_sizes/font_size = 16
@@ -424,5 +427,5 @@ text = "0"
 vertical_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control"]
-position = Vector2(6, 11)
+position = Vector2(36, 18)
 texture = ExtResource("18_bmm5k")
