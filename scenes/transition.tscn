@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqpcc1tbbck64"]
+
+[ext_resource type="Texture2D" uid="uid://bs12huk7ng2wt" path="res://assets/Solid_black.png" id="1_e7l44"]
+
+[node name="transition" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_speed = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3.99992, 0)
+scale = Vector2(3.11328, 1)
+texture = ExtResource("1_e7l44")

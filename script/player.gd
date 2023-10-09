@@ -6,6 +6,7 @@ const gravity = 800.0
 
 @export var coin_label : Label
 @export var control_pip : Control
+@export var transition_scene : PackedScene
 
 @onready var ray_cast_up = $ray_cast_up
 @onready var ray_cast_down = $ray_cast_down
@@ -25,6 +26,8 @@ var coins = 0
 var pipe_down_possible = false
 var pipe_down_target_pos
 var pipe_clear_color = Color.BLACK
+var time_pipe_entered = 0
+var transition_scene_instance = null
 
 func on_pipe_entrance(target_pos:Vector2, is_down:bool, new_clear_color:Color):
 	if is_down:
@@ -32,6 +35,9 @@ func on_pipe_entrance(target_pos:Vector2, is_down:bool, new_clear_color:Color):
 		pipe_down_target_pos = target_pos
 		pipe_clear_color = new_clear_color
 	else:
+		time_pipe_entered = Time.get_ticks_msec()
+		transition_scene_instance = transition_scene.instantiate()
+		get_parent().add_child(transition_scene_instance)
 		RenderingServer.set_default_clear_color(new_clear_color)
 		position = target_pos
 
@@ -108,10 +114,17 @@ func _physics_process(delta):
 		touch_jump = false
 		velocity.y = JUMP_VELOCITY
 
+	if transition_scene_instance != null and Time.get_ticks_msec() - time_pipe_entered > 1000:
+		get_parent().remove_child(transition_scene_instance)
+		transition_scene_instance.queue_free()
+		transition_scene_instance = null
 	
 	if touch_down or Input.is_action_just_pressed("down"):
 		touch_down = false
 		if pipe_down_possible:
+			time_pipe_entered = Time.get_ticks_msec()
+			transition_scene_instance = transition_scene.instantiate()
+			get_parent().add_child(transition_scene_instance)
 			position = pipe_down_target_pos
 			RenderingServer.set_default_clear_color(pipe_clear_color)
 	

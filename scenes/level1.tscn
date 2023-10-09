@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bxqynax3k8bhi"]
+[gd_scene load_steps=29 format=3 uid="uid://bxqynax3k8bhi"]
 
 [ext_resource type="Script" path="res://script/level1.gd" id="1_8ac80"]
 [ext_resource type="Script" path="res://script/camera.gd" id="2_5frrd"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cirwt2bunspsd" path="res://assets/items/coin/coin1.png" id="18_bmm5k"]
 [ext_resource type="Texture2D" uid="uid://shnovgyt2w65" path="res://assets/single/finish_1.png" id="19_7urd3"]
 [ext_resource type="FontFile" uid="uid://dktcchktppu1v" path="res://assets/fonts/super-mario-bros-nes.ttf" id="19_vh18h"]
+[ext_resource type="PackedScene" uid="uid://bqpcc1tbbck64" path="res://scenes/transition.tscn" id="20_ivgld"]
 [ext_resource type="Texture2D" uid="uid://bgxo1di4jxv7p" path="res://assets/single/finish_2.png" id="20_myray"]
 [ext_resource type="PackedScene" uid="uid://sftmwl26okh3" path="res://prefabs/gumba.tscn" id="20_rivl7"]
 [ext_resource type="PackedScene" uid="uid://ciw8ifeiqlscr" path="res://prefabs/mushroom.tscn" id="21_l0vyr"]
@@ -56,6 +57,7 @@ size = Vector2(90, 20)
 script = ExtResource("1_8ac80")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 script = ExtResource("2_5frrd")
 
@@ -577,6 +579,7 @@ position = Vector2(2384, 56)
 [node name="player" parent="." node_paths=PackedStringArray("coin_label") instance=ExtResource("12_ieo3i")]
 position = Vector2(-48, 56)
 coin_label = NodePath("../CanvasLayer/Control/Label")
+transition_scene = ExtResource("20_ivgld")
 
 [node name="Finish1" type="Sprite2D" parent="."]
 position = Vector2(2872, -29)
@@ -602,10 +605,11 @@ offset_right = 122.0
 offset_bottom = 29.0
 theme_override_colors/font_color = Color(0.894118, 0.588235, 0.0745098, 1)
 theme_override_fonts/font = ExtResource("19_vh18h")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 8
 text = "0"
 vertical_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Control"]
-position = Vector2(36, 18)
+position = Vector2(38, 18)
+scale = Vector2(1, 0.625)
 texture = ExtResource("18_bmm5k")
