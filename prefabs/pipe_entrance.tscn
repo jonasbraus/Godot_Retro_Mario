@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgyet7i518i32"]
+
+[ext_resource type="Script" path="res://script/pipe_entrance.gd" id="1_4suvs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3aetc"]
+size = Vector2(32, 2)
+
+[node name="pipe_entrance" type="Area2D"]
+position = Vector2(0, -8)
+script = ExtResource("1_4suvs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3aetc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

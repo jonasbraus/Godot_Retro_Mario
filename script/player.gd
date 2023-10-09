@@ -14,11 +14,29 @@ const gravity = 800.0
 @onready var collission_small = $collission_small
 
 var joystick_anchor = Vector2.ZERO
+var jump_anchor = Vector2.ZERO
 var touch_axis = 0
 var touch_jump = false
+var touch_down = false
 
 var is_big = false
 var coins = 0
+
+var pipe_down_possible = false
+var pipe_down_target_pos
+var pipe_clear_color = Color.BLACK
+
+func on_pipe_entrance(target_pos:Vector2, is_down:bool, new_clear_color:Color):
+	if is_down:
+		pipe_down_possible = true
+		pipe_down_target_pos = target_pos
+		pipe_clear_color = new_clear_color
+	else:
+		RenderingServer.set_default_clear_color(new_clear_color)
+		position = target_pos
+
+func on_pipe_entrance_left():
+	pipe_down_possible = false
 
 func hit():
 	if not is_big:
@@ -72,8 +90,15 @@ func _unhandled_input(event):
 				touch_axis = 0
 			if event is InputEventScreenTouch and event.is_released():
 				touch_axis = 0
-		elif event.is_pressed() and is_on_floor():
-			touch_jump = true
+		elif is_on_floor():
+			if event.is_pressed():
+				jump_anchor = event.position
+			if event is InputEventScreenTouch and event.is_released():
+				var anchor_offset = event.position.y - jump_anchor.y
+				if anchor_offset > 20:
+					touch_down = true
+				else:
+					touch_jump = true
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -83,6 +108,13 @@ func _physics_process(delta):
 		touch_jump = false
 		velocity.y = JUMP_VELOCITY
 
+	
+	if touch_down or Input.is_action_just_pressed("down"):
+		touch_down = false
+		if pipe_down_possible:
+			position = pipe_down_target_pos
+			RenderingServer.set_default_clear_color(pipe_clear_color)
+	
 	var direction = Input.get_axis("left", "right") + touch_axis
 	if direction:
 		velocity.x = direction * SPEED

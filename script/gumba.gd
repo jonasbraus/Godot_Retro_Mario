@@ -40,5 +40,6 @@ func hit():
 	if collider != null:
 		gravity_scale = 0
 		collider.queue_free()
+		freeze = true
 		time_hit = Time.get_ticks_msec()
 		hitted = true
